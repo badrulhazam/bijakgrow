@@ -5,7 +5,7 @@
 
     <!-- Form Section -->
     <div class="bg-white p-6 rounded-lg shadow">
-	
+	<h6 class="text-lg font-bold mb-6">Develop By Mohd Badrulhazam PG00651763</h6>
         <h2 class="text-lg font-bold mb-6">Investment Comparison Input</h2>
 
         <form id="investmentForm" action="{{ route('investment.index') }}" method="POST" class="space-y-6">
@@ -14,12 +14,11 @@
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="w-full md:w-1/2">
                     <label class="block mb-1 text-sm font-medium">Amount (RM):</label>
-          <div class="relative">
-  <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 font-semibold">RM</span>
-  <input id="amount" type="number" required
-    class="w-full rounded-md border border-gray-300 px-3 py-2 pl-16 text-right shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-400">
-</div>
-
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">RM</span>
+                        <input type="number" name="amount" required
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 pl-10 shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    </div>
                 </div>
 
                 <div class="w-full md:w-1/2">
@@ -89,7 +88,7 @@
     Kalkulator Emas untuk Haji
 </button>
 		
-<h2 class="text-lg font-bold mb-6">Develop By Mohd Badrulhazam PG00651763</h2>
+
 
     </div>
 
