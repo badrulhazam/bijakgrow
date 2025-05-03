@@ -9,7 +9,8 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js']) 
 </head>
-<body class="bg-gray-100 font-sans antialiased">
+<body class="bg-[#0f172a] text-white min-h-screen">
+
     <div class="min-h-screen">
         @yield('content')
 			<!-- Tambah sebelum </body> -->

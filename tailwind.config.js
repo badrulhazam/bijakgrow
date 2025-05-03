@@ -1,6 +1,6 @@
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class', // 🔥 Ini wajib untuk toggle class-based dark mode
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
