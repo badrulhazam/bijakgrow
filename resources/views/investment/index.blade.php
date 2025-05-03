@@ -178,39 +178,52 @@
 
 
 
-    <!-- Modal Kalkulator Zakat Emas -->
-<div id="zakatModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 dark:bg-white/10">
-  <div class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 rounded-lg shadow-lg w-full max-w-md mx-auto mt-24 p-6 relative">
+   <!-- Modal Kalkulator Zakat Emas -->
+<div id="zakatModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 items-center justify-center">
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md mx-auto mt-24 p-6 relative text-gray-900 dark:text-white">
     <h3 class="text-xl font-semibold mb-4">Kalkulator Zakat Emas</h3>
     <form onsubmit="kiraZakatEmas(event)">
-      <div class="mb-3">
-        <label class="block font-medium">Berat Emas (gram):</label>
+      <div class="mb-4">
+        <label for="beratEmas" class="block text-sm font-medium">Berat Emas (gram):</label>
         <input type="number" id="beratEmas" step="0.01"
-          class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm dark:bg-gray-800 dark:border-gray-600" required>
+               class="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500" required>
       </div>
-      <div class="mb-3">
-        <label class="block font-medium">Harga Semasa (RM/gram):</label>
+
+      <div class="mb-4">
+        <label for="hargaSemasa" class="block text-sm font-medium">Harga Semasa (RM/gram):</label>
         <input type="number" id="hargaSemasa" step="0.01"
-          class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm dark:bg-gray-800 dark:border-gray-600" required>
+               class="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500" required>
       </div>
-      <div class="mb-3">
-        <label class="block font-medium">Kategori Simpanan:</label>
-        <select id="kategoriZakat" class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm dark:bg-gray-800 dark:border-gray-600">
+
+      <div class="mb-4">
+        <label for="kategoriZakat" class="block text-sm font-medium">Kategori Simpanan:</label>
+        <select id="kategoriZakat"
+                class="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500">
           <option value="perhiasan">Perhiasan (pakai harian)</option>
           <option value="simpanan">Simpanan sepenuhnya</option>
         </select>
       </div>
-      <div id="hasilZakat" class="bg-gray-100 dark:bg-gray-800 p-3 rounded mb-3 hidden text-sm">
-        <p id="statusZakat" class="mb-1 font-semibold text-blue-700 dark:text-blue-400"></p>
+
+      <div class="mb-1">
+        <label for="haulBulan" class="block text-sm font-medium">Tempoh Simpanan (bulan):</label>
+        <input type="number" id="haulBulan"
+               class="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500" required>
+      </div>
+      <p class="text-xs text-gray-500 dark:text-gray-300 mb-4">*Wajib zakat jika simpanan ≥ 12 bulan</p>
+
+      <div id="hasilZakat" class="bg-gray-100 dark:bg-gray-700 p-3 rounded mb-4 hidden text-sm">
+        <p id="statusZakat" class="mb-1 font-semibold text-blue-700 dark:text-blue-300"></p>
         <p id="jumlahZakat" class="font-semibold text-green-700 dark:text-green-400"></p>
       </div>
+
       <div class="flex justify-end">
         <button type="button" onclick="toggleZakatModal(false)" class="mr-3 text-gray-500 dark:text-gray-300">Tutup</button>
-        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Kira</button>
+        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Kira</button>
       </div>
     </form>
   </div>
 </div>
+
 
 <!-- Modal Target Gram -->
 <div id="targetModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 dark:bg-white/10">
@@ -360,46 +373,56 @@ function kiraTargetGramBajet(event) {
   modal.classList.toggle('flex', show);
 }
 
-function kiraUntungEmas(event) {
+ function kiraUntungEmas(event) {
   event.preventDefault();
 
   const modal = parseFloat(document.getElementById("modalEmas").value);
   const hargaBeli = parseFloat(document.getElementById("hargaBeli").value);
   const hargaSekarang = parseFloat(document.getElementById("hargaSekarang").value);
-  const tarikhBeli = document.getElementById("tarikhBeli").value;
-  const tarikhJual = document.getElementById("tarikhJual").value;
+  const tarikhBeli = new Date(document.getElementById("tarikhBeli").value);
+  const tarikhJual = new Date(document.getElementById("tarikhJual").value);
 
-  if (!modal || !hargaBeli || !hargaSekarang) return;
-
-  const gram = modal / hargaBeli;
-  const nilaiSemasa = gram * hargaSekarang;
-  const keuntungan = nilaiSemasa - modal;
-  const percent = (keuntungan / modal) * 100;
-
-  let tahunText = "";
-  let setahun = "";
-
-  if (tarikhBeli && tarikhJual) {
-    const mula = new Date(tarikhBeli);
-    const tamat = new Date(tarikhJual);
-    const bezaTahun = (tamat - mula) / (1000 * 60 * 60 * 24 * 365.25);
-    tahunText = ` (${bezaTahun.toFixed(1)} tahun)`;
-    setahun = `= ${(percent / bezaTahun).toFixed(2)}% setahun`;
-    document.getElementById("infoTarikh").textContent = `Tempoh: ${tarikhBeli} → ${tarikhJual}`;
-  } else {
-    document.getElementById("infoTarikh").textContent = "";
+  if (isNaN(modal) || isNaN(hargaBeli) || isNaN(hargaSekarang) || !tarikhBeli || !tarikhJual) {
+    alert("Sila isi semua ruangan dengan betul.");
+    return;
   }
 
-  document.getElementById("infoModal").textContent = `Modal Beli: RM${modal.toFixed(2)}`;
-  document.getElementById("infoNilaiWaktuBeli").textContent = `Nilai Waktu Beli: RM${(gram * hargaBeli).toFixed(2)} (ikut gram waktu beli)`;
-  document.getElementById("infoSemasa").textContent = `Nilai semasa: RM${nilaiSemasa.toFixed(2)}`;
-  document.getElementById("infoGram").textContent = `Gram Emas Dibeli: ${gram.toFixed(4)}g`;
-  document.getElementById("infoKeuntungan").textContent = `Keuntungan Bersih: RM${keuntungan.toFixed(2)}`;
-  document.getElementById("infoPercent").textContent = `Kenaikan: ${percent.toFixed(2)}%${tahunText}`;
-  document.getElementById("infoTahunan").textContent = setahun;
+  // Format tarikh kepada dd-mm-yyyy
+  function formatTarikh(date) {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
+
+  const tarikhMula = formatTarikh(tarikhBeli);
+  const tarikhAkhir = formatTarikh(tarikhJual);
+
+  const gramDibeli = modal / hargaBeli;
+  const nilaiSemasa = gramDibeli * hargaSekarang;
+  const keuntungan = nilaiSemasa - modal;
+  const nilaiBeliEmas = gramDibeli * hargaBeli;
+
+  const tempohTahun = (tarikhJual - tarikhBeli) / (1000 * 60 * 60 * 24 * 365.25);
+  const peratusKeuntungan = (keuntungan / modal) * 100;
+  const peratusSetahun = peratusKeuntungan / tempohTahun;
+
+  document.getElementById("infoTarikh").innerText = `Tempoh: ${tarikhMula} → ${tarikhAkhir}`;
+  document.getElementById("infoModal").innerText = `Modal Beli: RM${modal.toFixed(2)}`;
+  document.getElementById("infoSemasa").innerText =
+    `Nilai Waktu Beli: RM${nilaiBeliEmas.toFixed(2)} (ikut gram waktu beli)\nNilai semasa: RM${nilaiSemasa.toFixed(2)}`;
+  document.getElementById("infoGram").innerText = `Gram Emas Dibeli: ${gramDibeli.toFixed(4)}g`;
+  document.getElementById("infoKeuntungan").innerText = `Keuntungan Bersih: RM${keuntungan.toFixed(2)}`;
+  document.getElementById("infoPercent").innerText =
+    `Kenaikan: ${peratusKeuntungan.toFixed(2)}% (${tempohTahun.toFixed(1)} tahun)`;
+  document.getElementById("infoTahunan").innerText =
+    `= ${peratusSetahun.toFixed(2)}% setahun`;
 
   document.getElementById("hasilUntung").classList.remove("hidden");
 }
+  
+
 
   function toggleZakatModal(show) {
     const modal = document.getElementById('zakatModal');
@@ -408,31 +431,27 @@ function kiraUntungEmas(event) {
   }
 
   function kiraZakatEmas(event) {
-    event.preventDefault();
-    const berat = parseFloat(document.getElementById('beratEmas').value);
-    const harga = parseFloat(document.getElementById('hargaSemasa').value);
-    const kategori = document.getElementById('kategoriZakat').value;
-    const nisab = 85;
-    const dikecualikan = kategori === 'perhiasan' ? 200 : 0;
+  event.preventDefault();
+  const berat = parseFloat(document.getElementById("beratEmas").value);
+  const harga = parseFloat(document.getElementById("hargaSemasa").value);
+  const kategori = document.getElementById("kategoriZakat").value;
+  const haul = parseInt(document.getElementById("haulBulan").value);
+  const hasil = document.getElementById("hasilZakat");
 
-    let wajibZakat = false;
-    let jumlahZakat = 0;
-    const nilaiEmas = berat * harga;
+  let nisab = kategori === "simpanan" ? 85 : 200;
+  let wajib = berat >= nisab && haul >= 12;
 
-    if (kategori === 'simpanan' && berat >= nisab) {
-      wajibZakat = true;
-      jumlahZakat = nilaiEmas * 0.025;
-    } else if (kategori === 'perhiasan' && berat > dikecualikan) {
-      wajibZakat = true;
-      jumlahZakat = (berat - dikecualikan) * harga * 0.025;
-    }
-
-    document.getElementById('statusZakat').innerText =
-      wajibZakat ? "✅ Wajib Zakat" : "❌ Tidak Wajib Zakat";
-    document.getElementById('jumlahZakat').innerText =
-      wajibZakat ? `Zakat Perlu Dibayar: RM${jumlahZakat.toFixed(2)}` : "";
-    document.getElementById('hasilZakat').classList.remove('hidden');
+  if (wajib) {
+    const nilai = berat * harga;
+    const zakat = nilai * 0.025;
+    document.getElementById("statusZakat").innerHTML = "✅ Wajib Zakat";
+    document.getElementById("jumlahZakat").innerHTML = "Zakat Perlu Dibayar: RM" + zakat.toFixed(2);
+  } else {
+    document.getElementById("statusZakat").innerHTML = "❌ Belum Wajib Zakat";
+    document.getElementById("jumlahZakat").innerHTML = "Emas tidak mencapai nisab atau belum cukup haul.";
   }
+  hasil.classList.remove("hidden");
+}
   
   function toggleTargetModal(show) {
   const modal = document.getElementById('targetModal');
