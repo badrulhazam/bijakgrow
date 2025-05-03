@@ -83,7 +83,11 @@
         <button onclick="toggleTargetModal(true)" class="py-2 px-4 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 transition dark:bg-purple-700 dark:hover:bg-purple-800">Target Gram Emas</button>
         <button onclick="toggleHajiModal(true)" class="py-2 px-4 bg-amber-600 text-white font-semibold rounded-md hover:bg-amber-700 transition dark:bg-amber-700 dark:hover:bg-amber-800">Kalkulator Emas untuk Haji</button>
         <button onclick="toggleTargetPlanModal(true)" class="py-2 px-4 bg-fuchsia-600 text-white font-semibold rounded-md hover:bg-fuchsia-700 transition dark:bg-fuchsia-700 dark:hover:bg-fuchsia-800">Kiraan Simpanan Bulanan Capai Target Emas</button>
-    </div>
+		<button onclick="toggleEmasCiputModal(true)" class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded font-semibold">
+  Kalkulator Emas Ciput
+</button>
+
+   </div>
 
     <!-- Modal Styling Update -->
     <style>
@@ -317,6 +321,28 @@
   </div>
 </div>
 
+<!-- Modal Kalkulator Emas Ciput -->
+<div id="emasCiputModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 items-center justify-center">
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md mx-auto mt-24 p-6 relative text-gray-900 dark:text-white">
+    <h3 class="text-xl font-semibold mb-4">Kalkulator Emas Ciput</h3>
+    <form onsubmit="kiraEmasCiput(event)">
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Berat Emas (gram):</label>
+        <input type="number" id="ciputGram" step="0.0001" class="w-full rounded border-gray-300 px-3 py-2 dark:bg-gray-700 dark:text-white" value="0.001" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Harga (RM) untuk Berat Tersebut:</label>
+        <input type="number" id="ciputHarga" step="0.01" class="w-full rounded border-gray-300 px-3 py-2 dark:bg-gray-700 dark:text-white" value="10" required>
+      </div>
+      <div id="hasilEmasCiput" class="bg-gray-100 dark:bg-gray-700 text-sm p-4 rounded hidden mt-3"></div>
+      <div class="flex justify-end">
+        <button type="button" onclick="toggleEmasCiputModal(false)" class="mr-3 text-gray-500 dark:text-gray-300">Tutup</button>
+        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">Kira</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 
    <script>
   // Set theme bila page load
@@ -368,9 +394,25 @@ function kiraTargetGramBajet(event) {
 }
 
   function toggleEmasModal(show) {
-  const modal = document.getElementById('emasModal');
-  modal.classList.toggle('hidden', !show);
-  modal.classList.toggle('flex', show);
+  const modal = document.getElementById("emasModal");
+  if (show) {
+    modal.classList.remove("hidden");
+  } else {
+    modal.classList.add("hidden");
+    document.getElementById("modalEmas").value = "";
+    document.getElementById("hargaBeli").value = "";
+    document.getElementById("hargaSekarang").value = "";
+    document.getElementById("tarikhBeli").value = "";
+    document.getElementById("tarikhJual").value = "";
+    document.getElementById("hasilUntung").classList.add("hidden");
+    document.getElementById("infoTarikh").innerHTML = "";
+    document.getElementById("infoModal").innerHTML = "";
+    document.getElementById("infoSemasa").innerHTML = "";
+    document.getElementById("infoGram").innerHTML = "";
+    document.getElementById("infoKeuntungan").innerHTML = "";
+    document.getElementById("infoPercent").innerHTML = "";
+    document.getElementById("infoTahunan").innerHTML = "";
+  }
 }
 
  function kiraUntungEmas(event) {
@@ -425,10 +467,19 @@ function kiraTargetGramBajet(event) {
 
 
   function toggleZakatModal(show) {
-    const modal = document.getElementById('zakatModal');
-    modal.classList.toggle('hidden', !show);
-    modal.classList.toggle('flex', show);
+  const modal = document.getElementById("zakatModal");
+  modal.classList.toggle("hidden", !show);
+
+  if (!show) {
+    document.getElementById("beratEmas").value = "";
+    document.getElementById("hargaSemasa").value = "";
+    document.getElementById("kategoriZakat").value = "perhiasan";
+    document.getElementById("tempohSimpanan").value = "";
+    document.getElementById("statusZakat").innerHTML = "";
+    document.getElementById("jumlahZakat").innerHTML = "";
+    document.getElementById("hasilZakat").classList.add("hidden");
   }
+}
 
   function kiraZakatEmas(event) {
   event.preventDefault();
@@ -454,9 +505,16 @@ function kiraTargetGramBajet(event) {
 }
   
   function toggleTargetModal(show) {
-  const modal = document.getElementById('targetModal');
-  modal.classList.toggle('hidden', !show);
-  modal.classList.toggle('flex', show);
+  const modal = document.getElementById("targetModal");
+  if (show) {
+    modal.classList.remove("hidden");
+  } else {
+    modal.classList.add("hidden");
+    document.getElementById("targetGramBajet").value = "";
+    document.getElementById("hargaEmasBajet").value = "";
+    document.getElementById("bajetBulananGram").value = "";
+    document.getElementById("outputTargetGram").innerHTML = "";
+  }
 }
 
 function kiraTargetGram(event) {
@@ -474,9 +532,17 @@ function kiraTargetGram(event) {
 }
 
 function toggleSimulasiModal(show) {
-  const modal = document.getElementById('simulasiModal');
-  modal.classList.toggle('hidden', !show);
-  modal.classList.toggle('flex', show);
+  const modal = document.getElementById("simulasiModal");
+  if (show) {
+    modal.classList.remove("hidden");
+  } else {
+    modal.classList.add("hidden");
+    document.getElementById("hargaSekarang").value = "";
+    document.getElementById("kadarKenaikan").value = "";
+    document.getElementById("tempohTahun").value = "";
+    document.getElementById("hasilSimulasi").classList.add("hidden");
+    document.getElementById("simulasiOutput").innerHTML = "";
+  }
 }
 
 function kiraSimulasiEmas(event) {
@@ -496,9 +562,18 @@ function kiraSimulasiEmas(event) {
   document.getElementById('hasilSimulasi').classList.remove('hidden');
 }
 function toggleHajiModal(show) {
-  const modal = document.getElementById('hajiModal');
-  modal.classList.toggle('hidden', !show);
-  modal.classList.toggle('flex', show);
+  const modal = document.getElementById("hajiModal");
+  if (show) {
+    modal.classList.remove("hidden");
+  } else {
+    modal.classList.add("hidden");
+    document.getElementById("kosHaji").selectedIndex = 0;
+    document.getElementById("hargaHajiEmas").value = "";
+    document.getElementById("hasilHaji").classList.add("hidden");
+    document.getElementById("jumlahGramHaji").innerHTML = "";
+    document.getElementById("senaraiCadangan").innerHTML = "";
+    document.getElementById("totalCadangan").innerHTML = "";
+  }
 }
 
 function kiraEmasHaji(event) {
@@ -539,9 +614,17 @@ function kiraEmasHaji(event) {
   document.getElementById('hasilHaji').classList.remove('hidden');
 }
 function toggleTargetPlanModal(show) {
-  const modal = document.getElementById('targetPlanModal');
-  modal.classList.toggle('hidden', !show);
-  modal.classList.toggle('flex', show);
+  const modal = document.getElementById("targetPlanModal");
+  if (show) {
+    modal.classList.remove("hidden");
+  } else {
+    modal.classList.add("hidden");
+    document.getElementById("planTargetGram").value = "";
+    document.getElementById("planTargetBulan").value = "";
+    document.getElementById("planBajetBulanan").value = "";
+    document.getElementById("planHargaSemasa").value = "";
+    document.getElementById("outputPlanTarget").innerHTML = "";
+  }
 }
 
 function kiraPlanSimpanan(event) {
@@ -581,6 +664,43 @@ function kiraPlanSimpanan(event) {
     `;
   }
 }
+
+function toggleEmasCiputModal(show) {
+  const modal = document.getElementById('emasCiputModal');
+  modal.classList.toggle('hidden', !show);
+
+  if (!show) {
+    // Reset input & hasil bila tutup
+    document.getElementById("ciputGram").value = "";
+    document.getElementById("ciputHarga").value = "";
+    const hasilBox = document.getElementById("hasilEmasCiput");
+    hasilBox.innerHTML = "";
+    hasilBox.classList.add("hidden");
+  }
+}
+
+function kiraEmasCiput(e) {
+  e.preventDefault();
+  const gram = parseFloat(document.getElementById("ciputGram").value);
+  const harga = parseFloat(document.getElementById("ciputHarga").value);
+
+  if (gram <= 0 || harga <= 0) {
+    alert("Masukkan nilai yang sah.");
+    return;
+  }
+
+  const hargaPerGram = harga / gram;
+  const totalBayar = hargaPerGram * 1;
+
+  const hasilBox = document.getElementById("hasilEmasCiput");
+  hasilBox.innerHTML = `
+    <p>💰 Anda sedang beli emas pada harga: <strong>RM${hargaPerGram.toFixed(2)}</strong> per gram.</p>
+    <p>Untuk cukupkan <strong>1 gram</strong>, anda perlu bayar: <span class="font-bold text-red-600">RM${totalBayar.toFixed(2)}</span></p>
+    <p class="mt-2 text-yellow-700">📌 Bandingkan dengan harga GAP yang biasanya sekitar RM400–RM500/g.</p>
+  `;
+  hasilBox.classList.remove("hidden");
+}
+
 </script>
 
 
