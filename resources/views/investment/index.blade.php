@@ -86,6 +86,13 @@
 		<button onclick="toggleEmasCiputModal(true)" class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded font-semibold">
   Kalkulator Emas Ciput
 </button>
+  <button onclick="toggleJimatModal(true)" class="bg-red-500 text-white font-semibold py-2 rounded">💰 Kalkulator Penjimatan Emas</button>
+  <!-- Button trigger -->
+<button onclick="toggleCadanganModal(true)" class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded">
+  💡 Kombinasi Emas Terbaik
+</button>
+
+    </div>
 
    </div>
 
@@ -94,6 +101,10 @@
     .modal-dark {
         background-color: rgba(0,0,0,0.6);
     }
+	.modal-scroll {
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
     </style>
     </div>
 </div>
@@ -136,8 +147,9 @@
 
 
 
-   <div id="emasModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 items-center justify-center">
-  <div class="bg-white dark:bg-gray-900 text-gray-800 dark:text-white rounded-lg shadow-lg w-full max-w-md mx-auto mt-24 p-6 relative">
+   <div id="emasModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center overflow-auto">
+  <div class="bg-white dark:bg-gray-900 text-gray-800 dark:text-white rounded-lg shadow-lg w-full max-w-md mx-auto my-10 p-6 relative modal-scroll">
+    
     <h3 class="text-xl font-semibold mb-4">Kalkulator Keuntungan Emas</h3>
     <form onsubmit="kiraUntungEmas(event)">
       <div class="mb-3">
@@ -342,6 +354,64 @@
     </form>
   </div>
 </div>
+
+<div id="jimatModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 items-center justify-center">
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md mx-auto mt-24 p-6 text-gray-900 dark:text-white relative">
+    <h3 class="text-xl font-semibold text-red-600 mb-4">💰 Kalkulator Penjimatan Emas</h3>
+    <form onsubmit="kiraJimatEmas(event)">
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Harga Tertinggi (RM/gram):</label>
+        <input type="number" id="hargaTertinggi" step="0.01"
+               class="w-full rounded border-gray-300 px-3 py-2 dark:bg-gray-700 dark:text-white" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Harga Semasa (RM/gram):</label>
+        <input type="number" id="hargaSemasaJimat" step="0.01"
+               class="w-full rounded border-gray-300 px-3 py-2 dark:bg-gray-700 dark:text-white" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Berat Emas (gram):</label>
+        <input type="number" id="beratJimat" step="0.01"
+               class="w-full rounded border-gray-300 px-3 py-2 dark:bg-gray-700 dark:text-white" required>
+      </div>
+
+      <div id="hasilJimat" class="bg-green-100 dark:bg-green-900 p-4 rounded mb-3 hidden text-green-800 dark:text-green-300 text-sm font-medium">
+        ✅ Penjimatan: <span id="nilaiJimat">RM0.00</span>
+      </div>
+
+      <div class="flex justify-end">
+        <button type="button" onclick="toggleJimatModal(false)" class="mr-3 text-gray-500 dark:text-gray-300">Tutup</button>
+        <button type="reset" onclick="resetJimatForm()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 mr-2">Reset</button>
+        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">Kira</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Cadangan Kombinasi Emas -->
+<div id="cadanganModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md mx-auto mt-20 p-6 relative text-gray-900 dark:text-white">
+    <h3 class="text-xl font-semibold mb-4">Cadangan Kombinasi Emas</h3>
+    <form onsubmit="kiraCadanganEmas(event)">
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Bajet Anda (RM):</label>
+        <input type="number" id="bajetCadangan" step="0.01" required class="w-full rounded border-gray-300 px-3 py-2 dark:bg-gray-700 dark:text-white">
+      </div>
+
+      <div id="hasilCadanganEmas" class="bg-gray-100 dark:bg-gray-700 text-sm p-4 rounded hidden mt-3">
+        <p class="font-medium text-green-700 dark:text-green-300 mb-2">Cadangan pembelian emas:</p>
+        <ul id="senaraiCadanganEmas" class="list-disc list-inside text-gray-800 dark:text-gray-200"></ul>
+      </div>
+
+      <div class="flex justify-end mt-4">
+        <button type="button" onclick="toggleCadanganModal(false)" class="mr-3 text-gray-500 dark:text-gray-300">Tutup</button>
+        <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded">Kira</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
 
 
    <script>
@@ -699,6 +769,75 @@ function kiraEmasCiput(e) {
     <p class="mt-2 text-yellow-700">📌 Bandingkan dengan harga GAP yang biasanya sekitar RM400–RM500/g.</p>
   `;
   hasilBox.classList.remove("hidden");
+}
+function toggleJimatModal(show) {
+  const modal = document.getElementById("jimatModal");
+  modal.classList.toggle("hidden", !show);
+
+  if (!show) {
+    resetJimatForm();
+  }
+}
+
+function resetJimatForm() {
+  document.getElementById("hargaTertinggi").value = "";
+  document.getElementById("hargaSemasaJimat").value = "";
+  document.getElementById("beratJimat").value = "";
+  document.getElementById("nilaiJimat").innerText = "RM0.00";
+  document.getElementById("hasilJimat").classList.add("hidden");
+}
+
+function kiraJimatEmas(e) {
+  e.preventDefault();
+  const tinggi = parseFloat(document.getElementById("hargaTertinggi").value);
+  const semasa = parseFloat(document.getElementById("hargaSemasaJimat").value);
+  const berat = parseFloat(document.getElementById("beratJimat").value);
+
+  if (tinggi > 0 && semasa > 0 && berat > 0) {
+    const jimat = (tinggi - semasa) * berat;
+    document.getElementById("nilaiJimat").innerText = `RM${jimat.toFixed(2)}`;
+    document.getElementById("hasilJimat").classList.remove("hidden");
+  } else {
+    alert("Sila isi semua medan dengan nilai yang sah.");
+  }
+}
+
+function toggleCadanganModal(show) {
+  const modal = document.getElementById("cadanganModal");
+  modal.classList.toggle("hidden", !show);
+}
+
+function kiraCadanganEmas(event) {
+  event.preventDefault();
+
+  const bajet = parseFloat(document.getElementById("bajetCadangan").value);
+  const hasil = document.getElementById("hasilCadanganEmas");
+  const senarai = document.getElementById("senaraiCadanganEmas");
+
+  hasil.classList.remove("hidden");
+  senarai.innerHTML = "";
+
+  let cadangan = [];
+
+  if (bajet >= 150000) {
+    cadangan.push("Gold Bar 250g");
+  } else if (bajet >= 100000) {
+    cadangan.push("Gold Bar 250g", "Coin 10 Dinar", "Gold Bar 50g", "Gold Bar 100g");
+  } else if (bajet >= 20000) {
+    cadangan.push("Coin 10 Dinar", "Coin 5 Dinar", "Gold Bar 50g");
+  } else if (bajet >= 10000) {
+    cadangan.push("Coin 10 Dinar", "Coin 5 Dinar", "Gold Bar 20g");
+  } else if (bajet >= 1000) {
+    cadangan.push("Coin 1 Dinar", "Coin 1/2 Dinar", "Gold Bar 5g", "Gold Bar 10g");
+  } else {
+    cadangan.push("Coin 1/4 Dinar", "Gold Bar 1g");
+  }
+
+  cadangan.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    senarai.appendChild(li);
+  });
 }
 
 </script>
