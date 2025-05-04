@@ -22,5 +22,8 @@ use App\Http\Controllers\InvestmentComparisonController;
 Route::match(['get', 'post'], '/investment', [InvestmentComparisonController::class, 'index'])->name('investment.index');
 
 
+Route::get('/dealer', function () {
+    return view('investment.dealer');
+})->name('dealer.page');
 
 require __DIR__.'/auth.php';
