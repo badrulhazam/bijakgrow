@@ -829,7 +829,10 @@ function kiraCadanganEmas(event) {
     cadangan.push("Coin 10 Dinar", "Coin 5 Dinar", "Gold Bar 20g");
   } else if (bajet >= 1000) {
     cadangan.push("Coin 1 Dinar", "Coin 1/2 Dinar", "Gold Bar 5g", "Gold Bar 10g");
-  } else {
+  } else if (bajet >= 800) {
+    cadangan.push("Coin 1 Dinar", "Coin 1/2 Dinar", "Gold Bar 5g", "Gold Bar 10g");
+  }
+  else {
     cadangan.push("Coin 1/4 Dinar", "Gold Bar 1g");
   }
 
