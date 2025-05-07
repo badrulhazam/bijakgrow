@@ -147,6 +147,8 @@
         <a href="http://127.0.0.1:8000/investment">
             <button class="button">📘 Buka Kalkulator Emas</button>
         </a>
+		<a href="{{ route('investment') }}" class="btn btn-primary">Kalkulator Emas</a>
+
 
         <div class="footer">
             Powered by <a href="#" style="color: white; text-decoration: underline;">badruhazam</a>
