@@ -23,12 +23,14 @@
 
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="w-full md:w-1/2">
-                    <label class="block mb-1 text-sm font-medium">Amount (RM):</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">RM</span>
-                        <input type="number" name="amount" required placeholder="Contoh: 1000"
-                            class="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 pl-10 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
-                    </div>
+              <label class="block mb-1 text-sm font-medium">Amount:</label>
+<div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-md overflow-hidden">
+    <span class="px-3 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">RM</span>
+    <input type="number" name="amount" required placeholder="1000"
+        class="w-full px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-l border-gray-300 dark:border-gray-600 focus:outline-none">
+</div>
+
+
                 </div>
 
                 <div class="w-full md:w-1/2">
