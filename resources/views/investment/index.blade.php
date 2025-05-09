@@ -117,39 +117,42 @@
 	</div>
 		
 	<!-- Modal -->
-	<div id="targetPlanModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 items-center justify-center">
-	  <div class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-lg shadow-lg w-full max-w-md mx-auto mt-20 p-6 relative">
-		<h3 class="text-xl font-semibold mb-4">Berapa Gram Emas Kena Kumpul Setiap Bulan</h3>
-		<form onsubmit="kiraPlanSimpanan(event)">
-		  <div class="mb-3">
-			<label class="block font-medium">Target Simpanan Emas (gram):</label>
-			<input type="number" id="planTargetGram" step="0.01" required
-				   class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 shadow-sm">
-		  </div>
-		  <div class="mb-3">
-			<label class="block font-medium">Tempoh Simpanan (bulan):</label>
-			<input type="number" id="planTargetBulan"
-				   class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 shadow-sm">
-		  </div>
-			<div class="mb-3">
-			<label class="block font-medium">Bajet Bulanan (RM):</label>
-			<input type="number" id="planBajetBulanan"
-				   class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 shadow-sm">
-			<p class="text-xs text-gray-600 dark:text-gray-400">*Isi sama ada tempoh bulan atau bajet, tak perlu dua-dua</p>
-		  </div>
-		  <div class="mb-3">
-			<label class="block font-medium">Harga Emas Semasa (RM/gram):</label>
-			<input type="number" id="planHargaSemasa" step="0.01" required
-				   class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 shadow-sm">
-		  </div>
-		  <div id="outputPlanTarget" class="bg-gray-100 dark:bg-gray-700 p-3 rounded text-sm text-blue-900 dark:text-blue-300"></div>
-		  <div class="flex justify-end mt-4">
-			<button type="button" onclick="toggleTargetPlanModal(false)" class="mr-3 text-gray-500 dark:text-gray-300">Tutup</button>
-			<button type="submit" class="bg-fuchsia-600 text-white px-4 py-2 rounded hover:bg-fuchsia-700">Kira</button>
-		  </div>
-		</form>
-	  </div>
-	</div>
+<div id="targetPlanModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center px-4 sm:px-0">
+  <div class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 rounded-lg shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto p-6 relative">
+    <h3 class="text-xl font-semibold mb-4">Berapa Gram Emas Kena Kumpul Setiap Bulan</h3>
+    <form onsubmit="kiraPlanSimpanan(event)">
+      <div class="mb-3">
+        <label class="block font-medium">Target Simpanan Emas (gram):</label>
+        <input type="number" id="planTargetGram" step="0.01" required
+          class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 shadow-sm">
+      </div>
+      <div class="mb-3">
+        <label class="block font-medium">Tempoh Simpanan (bulan):</label>
+        <input type="number" id="planTargetBulan"
+          class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 shadow-sm">
+      </div>
+      <div class="mb-3">
+        <label class="block font-medium">Bajet Bulanan (RM):</label>
+        <input type="number" id="planBajetBulanan"
+          class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 shadow-sm">
+        <p class="text-xs text-gray-600 dark:text-gray-400">*Isi sama ada tempoh bulan atau bajet, tak perlu dua-dua</p>
+      </div>
+      <div class="mb-3">
+        <label class="block font-medium">Harga Emas Semasa (RM/gram):</label>
+        <input type="number" id="planHargaSemasa" step="0.01" required
+          class="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-3 py-2 shadow-sm">
+      </div>
+
+      <div id="outputPlanTarget" class="bg-gray-100 dark:bg-gray-700 p-3 rounded text-sm text-blue-900 dark:text-blue-300"></div>
+
+      <div class="flex justify-end sticky bottom-0 pt-4 bg-white dark:bg-gray-800">
+        <button type="button" onclick="toggleTargetPlanModal(false)" class="mr-3 text-gray-500 dark:text-gray-300">Tutup</button>
+        <button type="submit" class="bg-fuchsia-600 text-white px-4 py-2 rounded hover:bg-fuchsia-700">Kira</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 
 
 
@@ -201,51 +204,56 @@
 
 
 
-	   <!-- Modal Kalkulator Zakat Emas -->
-	<div id="zakatModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 items-center justify-center">
-	  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md mx-auto mt-24 p-6 relative text-gray-900 dark:text-white">
-		<h3 class="text-xl font-semibold mb-4">Kalkulator Zakat Emas</h3>
-		<form onsubmit="kiraZakatEmas(event)">
-		  <div class="mb-4">
-			<label for="beratEmas" class="block text-sm font-medium">Berat Emas (gram):</label>
-			<input type="number" id="beratEmas" step="0.01"
-				   class="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500" required>
-		  </div>
+	 <!-- Modal Kalkulator Zakat Emas -->
+<div id="zakatModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center px-4 sm:px-0">
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto p-6 relative text-gray-900 dark:text-white">
+    <h3 class="text-xl font-semibold mb-4">Kalkulator Zakat Emas</h3>
+    <form onsubmit="kiraZakatEmas(event)">
+      <div class="mb-4">
+        <label for="beratEmas" class="block text-sm font-medium">Berat Emas (gram):</label>
+        <input type="number" id="beratEmas" step="0.01"
+          class="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500"
+          required>
+      </div>
 
-		  <div class="mb-4">
-			<label for="hargaSemasa" class="block text-sm font-medium">Harga Semasa (RM/gram):</label>
-			<input type="number" id="hargaSemasa" step="0.01"
-				   class="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500" required>
-		  </div>
+      <div class="mb-4">
+        <label for="hargaSemasa" class="block text-sm font-medium">Harga Semasa (RM/gram):</label>
+        <input type="number" id="hargaSemasa" step="0.01"
+          class="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500"
+          required>
+      </div>
 
-		  <div class="mb-4">
-			<label for="kategoriZakat" class="block text-sm font-medium">Kategori Simpanan:</label>
-			<select id="kategoriZakat"
-					class="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500">
-			  <option value="perhiasan">Perhiasan (pakai harian)</option>
-			  <option value="simpanan">Simpanan sepenuhnya</option>
-			</select>
-		  </div>
+      <div class="mb-4">
+        <label for="kategoriZakat" class="block text-sm font-medium">Kategori Simpanan:</label>
+        <select id="kategoriZakat"
+          class="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500">
+          <option value="perhiasan">Perhiasan (pakai harian)</option>
+          <option value="simpanan">Simpanan sepenuhnya</option>
+        </select>
+      </div>
 
-		  <div class="mb-1">
-			<label for="haulBulan" class="block text-sm font-medium">Tempoh Simpanan (bulan):</label>
-			<input type="number" id="haulBulan"
-				   class="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500" required>
-		  </div>
-		  <p class="text-xs text-gray-500 dark:text-gray-300 mb-4">*Wajib zakat jika simpanan ≥ 12 bulan</p>
+      <div class="mb-1">
+        <label for="haulBulan" class="block text-sm font-medium">Tempoh Simpanan (bulan):</label>
+        <input type="number" id="haulBulan"
+          class="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 shadow-sm focus:outline-none focus:ring focus:border-blue-500"
+          required>
+      </div>
+      <p class="text-xs text-gray-500 dark:text-gray-300 mb-4">*Wajib zakat jika simpanan ≥ 12 bulan</p>
 
-		  <div id="hasilZakat" class="bg-gray-100 dark:bg-gray-700 p-3 rounded mb-4 hidden text-sm">
-			<p id="statusZakat" class="mb-1 font-semibold text-blue-700 dark:text-blue-300"></p>
-			<p id="jumlahZakat" class="font-semibold text-green-700 dark:text-green-400"></p>
-		  </div>
+      <div id="hasilZakat"
+        class="bg-gray-100 dark:bg-gray-700 p-3 rounded mb-4 hidden text-sm text-green-700 dark:text-green-400">
+        <p id="statusZakat" class="mb-1 font-semibold text-blue-700 dark:text-blue-300"></p>
+        <p id="jumlahZakat" class="font-semibold"></p>
+      </div>
 
-		  <div class="flex justify-end">
-			<button type="button" onclick="toggleZakatModal(false)" class="mr-3 text-gray-500 dark:text-gray-300">Tutup</button>
-			<button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Kira</button>
-		  </div>
-		</form>
-	  </div>
-	</div>
+      <div class="flex justify-end sticky bottom-0 bg-white dark:bg-gray-800 pt-4">
+        <button type="button" onclick="toggleZakatModal(false)" class="mr-3 text-gray-500 dark:text-gray-300">Tutup</button>
+        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Kira</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 
 
 	<!-- Modal Target Gram -->
