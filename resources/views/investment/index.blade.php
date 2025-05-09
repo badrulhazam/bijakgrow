@@ -419,10 +419,12 @@
 	</div>
 
 	<!-- Modal Banding RM vs Emas -->
-<div id="bandingModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
-  <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md shadow-lg mx-4 sm:mx-0">
+<div id="bandingModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4 sm:p-0 overflow-y-auto">
+  <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md shadow-lg mx-auto overflow-y-auto max-h-screen">
+
     <h3 class="text-lg font-semibold mb-4 text-indigo-700 dark:text-indigo-300">📊 Bandingkan Simpan RM vs Emas</h3>
     <form onsubmit="kiraBandingSimpanan(event)">
+      <!-- Input Fields -->
       <div class="mb-3">
         <label class="block font-medium text-gray-800 dark:text-white">Simpanan Bulanan (RM):</label>
         <input type="number" id="bandingBulanan" class="w-full rounded border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" required>
@@ -440,35 +442,37 @@
         <input type="number" step="0.1" id="bandingKenaikanEmas" value="6" class="w-full rounded border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
       </div>
 
-     <!-- Hasil -->
-<div id="bandingHasil" class="hidden mt-4">
-  <div class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded p-4 text-sm space-y-3">
-    <div class="flex items-center justify-between">
-      <span class="flex items-center gap-2">
-        <span class="text-lg">📉</span>
-        <span class="font-medium text-gray-800 dark:text-white">Jika simpan sebagai tunai (RM):</span>
-      </span>
-      <span class="font-semibold text-red-600 dark:text-red-400" id="hasilRM">RM0.00</span>
-    </div>
-    <div class="flex items-center justify-between">
-      <span class="flex items-center gap-2">
-        <span class="text-lg">📈</span>
-        <span class="font-medium text-gray-800 dark:text-white">Jika simpan dalam emas:</span>
-      </span>
-      <span class="font-semibold text-green-600 dark:text-green-400" id="hasilEmas">RM0.00</span>
-    </div>
-    <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">
-      *Kiraan berdasarkan inflasi <span id="inflasiVal">3.0</span>% dan kenaikan emas <span id="kenaikanVal">6.0</span>% setahun
-    </p>
-  </div>
-</div>
+      <!-- Hasil -->
+      <div id="bandingHasil" class="hidden mt-4">
+        <div class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded p-4 text-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="flex items-center gap-2">
+              <span class="text-lg">📉</span>
+              <span class="font-medium text-gray-800 dark:text-white">Jika simpan sebagai tunai (RM):</span>
+            </span>
+            <span id="hasilRM" class="font-bold text-red-600 dark:text-red-400">RM0.00</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="flex items-center gap-2">
+              <span class="text-lg">📈</span>
+              <span class="font-medium text-gray-800 dark:text-white">Jika simpan dalam emas:</span>
+            </span>
+            <span id="hasilEmas" class="font-bold text-green-600 dark:text-green-400">RM0.00</span>
+          </div>
+          <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">
+            *Kiraan berdasarkan inflasi <span id="inflasiVal">3.0</span>% dan kenaikan emas <span id="kenaikanVal">6.0</span>% setahun
+          </p>
+        </div>
+      </div>
 
+      <!-- Butang -->
       <div class="flex justify-end mt-4">
         <button type="button" onclick="toggleBandingModal(false)" class="text-gray-500 dark:text-gray-300 mr-2">Tutup</button>
         <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded">Kira</button>
       </div>
     </form>
 
+    <!-- Chart -->
     <canvas id="bandingChart" class="mt-6" height="120"></canvas>
   </div>
 </div>
