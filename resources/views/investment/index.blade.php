@@ -419,39 +419,61 @@
 	</div>
 
 	<!-- Modal Banding RM vs Emas -->
-	<div id="bandingModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
-	  <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md shadow-lg">
-		<h3 class="text-lg font-semibold mb-4 text-indigo-700 dark:text-indigo-300">📊 Bandingkan Simpan RM vs Emas</h3>
-		<form onsubmit="kiraBandingSimpanan(event)">
-		  <div class="mb-3">
-			<label class="block font-medium text-gray-800 dark:text-white">Simpanan Bulanan (RM):</label>
-			<input type="number" id="bandingBulanan" class="w-full rounded border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" required>
-		  </div>
-		  <div class="mb-3">
-			<label class="block font-medium text-gray-800 dark:text-white">Tempoh Simpanan (tahun):</label>
-			<input type="number" id="bandingTahun" class="w-full rounded border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" required>
-		  </div>
-		  <div class="mb-3">
-			<label class="block font-medium text-gray-800 dark:text-white">Kadar Inflasi (% setahun):</label>
-			<input type="number" step="0.1" id="bandingInflasi" value="3" class="w-full rounded border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
-		  </div>
-		  <div class="mb-3">
-			<label class="block font-medium text-gray-800 dark:text-white">Kenaikan Harga Emas (% setahun):</label>
-			<input type="number" step="0.1" id="bandingKenaikanEmas" value="6" class="w-full rounded border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
-		  </div>
+<div id="bandingModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md shadow-lg mx-4 sm:mx-0">
+    <h3 class="text-lg font-semibold mb-4 text-indigo-700 dark:text-indigo-300">📊 Bandingkan Simpan RM vs Emas</h3>
+    <form onsubmit="kiraBandingSimpanan(event)">
+      <div class="mb-3">
+        <label class="block font-medium text-gray-800 dark:text-white">Simpanan Bulanan (RM):</label>
+        <input type="number" id="bandingBulanan" class="w-full rounded border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" required>
+      </div>
+      <div class="mb-3">
+        <label class="block font-medium text-gray-800 dark:text-white">Tempoh Simpanan (tahun):</label>
+        <input type="number" id="bandingTahun" class="w-full rounded border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" required>
+      </div>
+      <div class="mb-3">
+        <label class="block font-medium text-gray-800 dark:text-white">Kadar Inflasi (% setahun):</label>
+        <input type="number" step="0.1" id="bandingInflasi" value="3" class="w-full rounded border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+      </div>
+      <div class="mb-3">
+        <label class="block font-medium text-gray-800 dark:text-white">Kenaikan Harga Emas (% setahun):</label>
+        <input type="number" step="0.1" id="bandingKenaikanEmas" value="6" class="w-full rounded border border-gray-300 dark:border-gray-600 px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+      </div>
 
-		  <div id="bandingHasil" class="mt-4 bg-gray-100 dark:bg-gray-700 p-4 rounded hidden text-sm text-gray-900 dark:text-white"></div>
+     <!-- Hasil -->
+<div id="bandingHasil" class="hidden mt-4">
+  <div class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded p-4 text-sm space-y-3">
+    <div class="flex items-center justify-between">
+      <span class="flex items-center gap-2">
+        <span class="text-lg">📉</span>
+        <span class="font-medium text-gray-800 dark:text-white">Jika simpan sebagai tunai (RM):</span>
+      </span>
+      <span class="font-semibold text-red-600 dark:text-red-400" id="hasilRM">RM0.00</span>
+    </div>
+    <div class="flex items-center justify-between">
+      <span class="flex items-center gap-2">
+        <span class="text-lg">📈</span>
+        <span class="font-medium text-gray-800 dark:text-white">Jika simpan dalam emas:</span>
+      </span>
+      <span class="font-semibold text-green-600 dark:text-green-400" id="hasilEmas">RM0.00</span>
+    </div>
+    <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">
+      *Kiraan berdasarkan inflasi <span id="inflasiVal">3.0</span>% dan kenaikan emas <span id="kenaikanVal">6.0</span>% setahun
+    </p>
+  </div>
+</div>
 
-		  <div class="flex justify-end mt-4">
-			<button type="button" onclick="toggleBandingModal(false)" class="text-gray-500 dark:text-gray-300 mr-2">Tutup</button>
-			<button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded">Kira</button>
-		  </div>
-		</form>
-		
-		<canvas id="bandingChart" class="mt-6" height="120"></canvas>
-	  </div>
-	</div>
-	
+      <div class="flex justify-end mt-4">
+        <button type="button" onclick="toggleBandingModal(false)" class="text-gray-500 dark:text-gray-300 mr-2">Tutup</button>
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded">Kira</button>
+      </div>
+    </form>
+
+    <canvas id="bandingChart" class="mt-6" height="120"></canvas>
+  </div>
+</div>
+
+
 	
 
 
@@ -898,25 +920,42 @@
 	let bandingChartObj = null;
 
 	function kiraBandingSimpanan(event) {
-	  event.preventDefault();
+	    event.preventDefault();
 
-	  const bulanan = parseFloat(document.getElementById("bandingBulanan").value);
-	  const tahun = parseFloat(document.getElementById("bandingTahun").value);
-	  const inflasi = parseFloat(document.getElementById("bandingInflasi").value) / 100;
-	  const emas = parseFloat(document.getElementById("bandingKenaikanEmas").value) / 100;
-	  const bulan = tahun * 12;
+  const bulanan = parseFloat(document.getElementById("bandingBulanan").value);
+  const tahun = parseFloat(document.getElementById("bandingTahun").value);
+  const inflasi = parseFloat(document.getElementById("bandingInflasi").value) / 100;
+  const emas = parseFloat(document.getElementById("bandingKenaikanEmas").value) / 100;
+  const bulan = tahun * 12;
 
-	  const simpanRM = bulanan * bulan * Math.pow((1 - inflasi), tahun);
-	  const simpanEmas = bulanan * bulan * Math.pow((1 + emas), tahun);
+  const simpanRM = bulanan * bulan * Math.pow((1 - inflasi), tahun);
+  const simpanEmas = bulanan * bulan * Math.pow((1 + emas), tahun);
 
-	  // Tunjuk hasil
-	  const hasil = document.getElementById("bandingHasil");
-	  hasil.innerHTML = `
-		<p>📉 <strong>Jika simpan sebagai tunai (RM):</strong> <span class="text-red-600 font-semibold">RM${simpanRM.toFixed(2)}</span></p>
-		<p>📈 <strong>Jika simpan dalam emas:</strong> <span class="text-green-600 font-semibold">RM${simpanEmas.toFixed(2)}</span></p>
-		<p class="mt-2 text-sm text-gray-500">*Kiraan berdasarkan inflasi ${(inflasi * 100).toFixed(1)}% dan kenaikan emas ${(emas * 100).toFixed(1)}% setahun</p>
-	  `;
-	  hasil.classList.remove("hidden");
+  const hasil = document.getElementById("bandingHasil");
+
+  hasil.innerHTML = `
+    <div class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded p-4 text-sm space-y-3">
+      <div class="flex items-center justify-between">
+        <span class="flex items-center gap-2">
+          <span class="text-lg">📉</span>
+          <span class="font-medium text-gray-800 dark:text-white">Jika simpan sebagai tunai (RM):</span>
+        </span>
+        <span class="font-semibold text-red-600 dark:text-red-400">RM${simpanRM.toFixed(2)}</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <span class="flex items-center gap-2">
+          <span class="text-lg">📈</span>
+          <span class="font-medium text-gray-800 dark:text-white">Jika simpan dalam emas:</span>
+        </span>
+        <span class="font-semibold text-green-600 dark:text-green-400">RM${simpanEmas.toFixed(2)}</span>
+      </div>
+      <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">
+        *Kiraan berdasarkan inflasi ${(inflasi * 100).toFixed(1)}% dan kenaikan emas ${(emas * 100).toFixed(1)}% setahun
+      </p>
+    </div>
+  `;
+
+  hasil.classList.remove("hidden");
 
 	  // Render Chart
 	  const ctx = document.getElementById("bandingChart").getContext("2d");
